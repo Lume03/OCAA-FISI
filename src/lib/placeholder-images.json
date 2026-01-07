@@ -1,3 +1,34 @@
 {
-  "placeholderImages": []
+  "placeholderImages": [
+    {
+      "id": "hero",
+      "description": "University building facade with a classic architectural style.",
+      "imageUrl": "https://images.unsplash.com/photo-1576495199011-eb94736d05d6?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHx1bml2ZXJzaXR5JTIwYnVpbGRpbmd8ZW58MHx8fHwxNzY3NzM3MzY2fDA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "university building"
+    },
+    {
+      "id": "carousel-1",
+      "description": "Students collaborating in a modern classroom setting.",
+      "imageUrl": "https://images.unsplash.com/photo-1752564291723-bb816a3dfb33?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw0fHxzdHVkZW50cyUyMGNsYXNzcm9vbXxlbnwwfHx8fDE3Njc3MzE5NDF8MA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "students classroom"
+    },
+    {
+      "id": "carousel-2",
+      "description": "A sprawling university campus with green lawns and pathways.",
+      "imageUrl": "https://images.unsplash.com/photo-1619512673224-91cfb2688284?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw3fHx1bml2ZXJzaXR5JTIwY2FtcHVzfGVufDB8fHx8MTc2Nzc4NTA5N3ww&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "university campus"
+    },
+    {
+      "id": "carousel-3",
+      "description": "A well-lit library with rows of bookshelves.",
+      "imageUrl": "https://images.unsplash.com/photo-1524995997946-a1c2e315a42f?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw4fHxsaWJyYXJ5JTIwYm9va3N8ZW58MHx8fHwxNzY3NzUzNTE3fDA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "library books"
+    },
+    {
+      "id": "carousel-4",
+      "description": "A graduation ceremony with students in caps and gowns.",
+      "imageUrl": "https://images.unsplash.com/photo-1590012314607-cda9d9b699ae?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwyfHxncmFkdWF0aW9uJTIwY2VyZW1vbnl8ZW58MHx8fHwxNzY3NzQ5OTcyfDA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "graduation ceremony"
+    }
+  ]
 }
