@@ -24,26 +24,31 @@ export function Header() {
   const logoImage = PlaceHolderImages.find((img) => img.id === 'logo');
 
   return (
-    <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
-      <div className="container flex h-16 items-center">
-        <Link href="/" className="mr-6 flex items-center space-x-2">
+    <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur">
+      <div className="container flex h-20 items-center">
+        {/* LOGO */}
+        <Link href="/" className="mr-8 flex items-center">
           {logoImage ? (
             <Image
               src={logoImage.imageUrl}
               alt={logoImage.description}
-              width={140}
-              height={40}
-              className="h-10 w-auto"
-              data-ai-hint={logoImage.imageHint}
+              width={220}
+              height={70}
+              className="h-14 w-auto"
+              priority
             />
           ) : (
             <>
-              <University className="h-6 w-6 text-primary" />
-              <span className="hidden font-bold sm:inline-block">OCAA FISI</span>
+              <University className="h-8 w-8 text-primary" />
+              <span className="ml-2 hidden font-bold sm:inline-block">
+                OCAA FISI
+              </span>
             </>
           )}
         </Link>
-        <nav className="hidden items-center space-x-6 text-sm font-medium md:flex">
+
+        {/* NAV DESKTOP */}
+        <nav className="hidden items-center space-x-8 text-sm font-medium md:flex">
           {navLinks.map(({ href, label }) => (
             <Link
               key={href}
@@ -57,44 +62,45 @@ export function Header() {
             </Link>
           ))}
         </nav>
+
+        {/* MOBILE */}
         <div className="flex flex-1 items-center justify-end md:hidden">
           <Sheet open={isSheetOpen} onOpenChange={setIsSheetOpen}>
             <SheetTrigger asChild>
               <Button variant="outline" size="icon">
-                <Menu className="h-4 w-4" />
-                <span className="sr-only">Abrir menú</span>
+                <Menu className="h-5 w-5" />
               </Button>
             </SheetTrigger>
+
             <SheetContent side="left">
               <nav className="grid gap-6 text-lg font-medium">
                 <Link
                   href="/"
-                  className="flex items-center space-x-2"
+                  className="flex items-center"
                   onClick={() => setIsSheetOpen(false)}
                 >
-                   {logoImage ? (
+                  {logoImage ? (
                     <Image
                       src={logoImage.imageUrl}
                       alt={logoImage.description}
-                      width={140}
-                      height={40}
-                      className="h-10 w-auto"
+                      width={200}
+                      height={60}
+                      className="h-12 w-auto"
                     />
                   ) : (
-                     <>
-                      <University className="h-6 w-6 text-primary" />
-                      <span className="font-bold">OCAA FISI</span>
-                    </>
+                    <span className="font-bold">OCAA FISI</span>
                   )}
                 </Link>
+
                 {navLinks.map(({ href, label }) => (
                   <Link
                     key={href}
                     href={href}
                     onClick={() => setIsSheetOpen(false)}
                     className={cn(
-                      'transition-colors hover:text-primary',
-                      pathname === href ? 'text-primary' : 'text-muted-foreground'
+                      pathname === href
+                        ? 'text-primary'
+                        : 'text-muted-foreground'
                     )}
                   >
                     {label}
