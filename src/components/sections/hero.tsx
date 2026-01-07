@@ -42,7 +42,7 @@ export default function HeroSection() {
             asChild
             variant="outline"
             size="lg"
-            className="text-white border-white hover:bg-white hover:text-primary"
+            className="border-white text-white hover:bg-white hover:text-primary"
           >
             <Link href="/nosotros">Conócenos</Link>
           </Button>
