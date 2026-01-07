@@ -98,6 +98,7 @@ export function Header() {
                     href={href}
                     onClick={() => setIsSheetOpen(false)}
                     className={cn(
+                      'transition-colors hover:text-primary',
                       pathname === href
                         ? 'text-primary'
                         : 'text-muted-foreground'
