@@ -1,25 +1,18 @@
 'use server';
 
-import * as z from 'zod';
-
-export const formSchema = z.object({
-  name: z.string().min(2, {
-    message: 'El nombre debe tener al menos 2 caracteres.',
-  }),
-  email: z.string().email({
-    message: 'Por favor, ingrese un correo electrónico válido.',
-  }),
-  message: z.string().min(10, {
-    message: 'El mensaje debe tener al menos 10 caracteres.',
-  }),
-});
-
-export type FormValues = z.infer<typeof formSchema>;
+import { formSchema, type FormValues } from './contact-schema';
 
 export async function submitContactForm(data: FormValues) {
+  // Validate data on the server
+  const parsed = formSchema.safeParse(data);
+
+  if (!parsed.success) {
+    return { success: false, message: 'Invalid data provided.' };
+  }
+  
   // In a real application, you would handle the form submission here,
   // e.g., send an email, save to a database, etc.
-  console.log('Contact form submitted:', data);
+  console.log('Contact form submitted:', parsed.data);
 
   // Simulate a delay
   await new Promise(resolve => setTimeout(resolve, 1000));

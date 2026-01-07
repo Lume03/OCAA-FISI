@@ -2,15 +2,15 @@
 
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
-import * as z from 'zod';
+import { useToast } from '@/hooks/use-toast';
+import { useState, useTransition } from 'react';
 
 import { Button } from '@/components/ui/button';
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
-import { useToast } from '@/hooks/use-toast';
-import { useState, useTransition } from 'react';
-import { submitContactForm, type FormValues, formSchema } from '@/app/actions/contact';
+import { submitContactForm } from '@/app/actions/contact';
+import { formSchema, type FormValues } from '@/app/actions/contact-schema';
 
 
 export function ContactForm() {
@@ -37,13 +37,13 @@ export function ContactForm() {
           });
           form.reset();
         } else {
-          throw new Error('An unknown error occurred');
+          throw new Error(result.message || 'An unknown error occurred');
         }
       } catch (error) {
         toast({
           variant: 'destructive',
           title: 'Error',
-          description: 'Hubo un problema al enviar su mensaje. Por favor, inténtelo de nuevo.',
+          description: error instanceof Error ? error.message : 'Hubo un problema al enviar su mensaje. Por favor, inténtelo de nuevo.',
         });
       }
     });
