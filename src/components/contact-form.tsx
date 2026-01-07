@@ -9,38 +9,13 @@ import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 import { useToast } from '@/hooks/use-toast';
-import { useState } from 'react';
+import { useState, useTransition } from 'react';
+import { submitContactForm, type FormValues, formSchema } from '@/app/actions/contact';
 
-const formSchema = z.object({
-  name: z.string().min(2, {
-    message: 'El nombre debe tener al menos 2 caracteres.',
-  }),
-  email: z.string().email({
-    message: 'Por favor, ingrese un correo electrónico válido.',
-  }),
-  message: z.string().min(10, {
-    message: 'El mensaje debe tener al menos 10 caracteres.',
-  }),
-});
-
-type FormValues = z.infer<typeof formSchema>;
-
-async function submitContactForm(data: FormValues) {
-  'use server';
-  // In a real application, you would handle the form submission here,
-  // e.g., send an email, save to a database, etc.
-  console.log('Contact form submitted:', data);
-
-  // Simulate a delay
-  await new Promise(resolve => setTimeout(resolve, 1000));
-
-  // For this example, we'll just return a success message.
-  return { success: true, message: '¡Mensaje enviado con éxito! Nos pondremos en contacto pronto.' };
-}
 
 export function ContactForm() {
   const { toast } = useToast();
-  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [isPending, startTransition] = useTransition();
 
   const form = useForm<FormValues>({
     resolver: zodResolver(formSchema),
@@ -51,28 +26,27 @@ export function ContactForm() {
     },
   });
 
-  async function onSubmit(values: FormValues) {
-    setIsSubmitting(true);
-    try {
-      const result = await submitContactForm(values);
-      if (result.success) {
+  function onSubmit(values: FormValues) {
+    startTransition(async () => {
+      try {
+        const result = await submitContactForm(values);
+        if (result.success) {
+          toast({
+            title: 'Éxito',
+            description: result.message,
+          });
+          form.reset();
+        } else {
+          throw new Error('An unknown error occurred');
+        }
+      } catch (error) {
         toast({
-          title: 'Éxito',
-          description: result.message,
+          variant: 'destructive',
+          title: 'Error',
+          description: 'Hubo un problema al enviar su mensaje. Por favor, inténtelo de nuevo.',
         });
-        form.reset();
-      } else {
-        throw new Error('An unknown error occurred');
       }
-    } catch (error) {
-      toast({
-        variant: 'destructive',
-        title: 'Error',
-        description: 'Hubo un problema al enviar su mensaje. Por favor, inténtelo de nuevo.',
-      });
-    } finally {
-        setIsSubmitting(false);
-    }
+    });
   }
 
   return (
@@ -117,8 +91,8 @@ export function ContactForm() {
             </FormItem>
           )}
         />
-        <Button type="submit" disabled={isSubmitting} className="w-full">
-          {isSubmitting ? 'Enviando...' : 'Enviar Mensaje'}
+        <Button type="submit" disabled={isPending} className="w-full">
+          {isPending ? 'Enviando...' : 'Enviar Mensaje'}
         </Button>
       </form>
     </Form>
