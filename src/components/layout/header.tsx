@@ -7,6 +7,8 @@ import { Menu, University } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet';
 import { cn } from '@/lib/utils';
+import Image from 'next/image';
+import { PlaceHolderImages } from '@/lib/placeholder-images';
 
 const navLinks = [
   { href: '/', label: 'Inicio' },
@@ -19,13 +21,27 @@ const navLinks = [
 export function Header() {
   const [isSheetOpen, setIsSheetOpen] = React.useState(false);
   const pathname = usePathname();
+  const logoImage = PlaceHolderImages.find((img) => img.id === 'logo');
 
   return (
     <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
       <div className="container flex h-16 items-center">
         <Link href="/" className="mr-6 flex items-center space-x-2">
-          <University className="h-6 w-6 text-primary" />
-          <span className="hidden font-bold sm:inline-block">OCAA FISI</span>
+          {logoImage ? (
+            <Image
+              src={logoImage.imageUrl}
+              alt={logoImage.description}
+              width={140}
+              height={40}
+              className="h-10 w-auto"
+              data-ai-hint={logoImage.imageHint}
+            />
+          ) : (
+            <>
+              <University className="h-6 w-6 text-primary" />
+              <span className="hidden font-bold sm:inline-block">OCAA FISI</span>
+            </>
+          )}
         </Link>
         <nav className="hidden items-center space-x-6 text-sm font-medium md:flex">
           {navLinks.map(({ href, label }) => (
@@ -56,8 +72,20 @@ export function Header() {
                   className="flex items-center space-x-2"
                   onClick={() => setIsSheetOpen(false)}
                 >
-                  <University className="h-6 w-6 text-primary" />
-                  <span className="font-bold">OCAA FISI</span>
+                   {logoImage ? (
+                    <Image
+                      src={logoImage.imageUrl}
+                      alt={logoImage.description}
+                      width={140}
+                      height={40}
+                      className="h-10 w-auto"
+                    />
+                  ) : (
+                     <>
+                      <University className="h-6 w-6 text-primary" />
+                      <span className="font-bold">OCAA FISI</span>
+                    </>
+                  )}
                 </Link>
                 {navLinks.map(({ href, label }) => (
                   <Link
