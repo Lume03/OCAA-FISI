@@ -42,8 +42,10 @@ export default function CarouselSection() {
 
     return () => {
       stopAutoplay();
-      api.off('select', startAutoplay);
-      api.off('pointerDown', stopAutoplay);
+      if(api) {
+        api.off('select', startAutoplay);
+        api.off('pointerDown', stopAutoplay);
+      }
     };
   }, [api, startAutoplay, stopAutoplay]);
 
@@ -62,12 +64,19 @@ export default function CarouselSection() {
           aria-label="Image Carousel"
           className="relative"
         >
-          <Carousel setApi={setApi} className="w-full" opts={{ loop: true }}>
-            <CarouselContent>
+          <Carousel 
+            setApi={setApi} 
+            className="w-full" 
+            opts={{ 
+              loop: true,
+              align: 'start',
+            }}
+          >
+            <CarouselContent className="-ml-4">
               {carouselImages.map((image, index) => (
-                <CarouselItem key={index}>
+                <CarouselItem key={index} className="pl-4 md:basis-1/2 lg:basis-1/3">
                   <Card className="overflow-hidden shadow-lg">
-                    <CardContent className="relative aspect-[3/2] p-0">
+                    <CardContent className="relative aspect-video p-0">
                       <Image
                         src={image.imageUrl}
                         alt={image.description}
