@@ -54,8 +54,10 @@ export function Header() {
               key={href}
               href={href}
               className={cn(
-                'transition-colors hover:text-primary',
-                pathname === href ? 'text-primary' : 'text-muted-foreground'
+                'inline-block px-4 py-2 rounded-md text-sm font-medium transition-all duration-200 hover:scale-105 hover:bg-primary hover:text-primary-foreground',
+                pathname === href
+                  ? 'bg-primary text-primary-foreground'
+                  : 'text-foreground/80'
               )}
             >
               {label}

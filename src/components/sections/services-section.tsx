@@ -15,9 +15,9 @@ export default function ServicesSection() {
             </p>
           </div>
         </div>
-        <div className="mx-auto mt-12 grid items-start gap-8 sm:max-w-4xl sm:grid-cols-2 md:gap-12 lg:max-w-5xl lg:grid-cols-3">
+        <div className="mx-auto mt-12 grid gap-8 sm:max-w-4xl sm:grid-cols-2 md:gap-12 lg:max-w-7xl lg:grid-cols-4">
           {services.map((service, index) => (
-            <Card key={index} className="shadow-md transition-all hover:shadow-xl hover:-translate-y-1">
+            <Card key={index} className="h-full flex flex-col shadow-md transition-all hover:shadow-xl hover:-translate-y-1">
               <CardHeader>
                 <CardTitle className="font-headline">{service.title}</CardTitle>
               </CardHeader>

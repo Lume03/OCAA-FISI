@@ -5,27 +5,19 @@ export type Service = {
 
 export const services: Service[] = [
   {
-    title: 'Autoevaluación Institucional',
-    description: 'Coordinamos y ejecutamos los procesos de autoevaluación con fines de mejora continua y acreditación de los programas de estudio.',
+    title: 'Planificar y ejecutar las acciones de la política de calidad.',
+    description: 'Implica definir actividades concretas que permitan cumplir la política de calidad de la facultad y llevarlas a la práctica, asegurando la mejora continua de los procesos académicos y administrativos.',
   },
   {
-    title: 'Aseguramiento de la Calidad',
-    description: 'Implementamos y monitoreamos el Sistema de Gestión de la Calidad para garantizar el cumplimiento de los estándares educativos.',
+    title: 'Planificar y ejecutar la estrategia de evaluación–planeación–acción.',
+    description: 'Consiste en evaluar periódicamente el desempeño de la facultad, planificar mejoras a partir de los resultados obtenidos y ejecutar acciones correctivas y preventivas.',
   },
   {
-    title: 'Procesos de Acreditación',
-    description: 'Guiamos y apoyamos a los comités de calidad en la preparación de informes y visitas para los procesos de acreditación nacional e internacional.',
+    title: 'Formular y ejecutar el plan de capacitación en gestión de la calidad.',
+    description: 'Se refiere a diseñar y desarrollar actividades de capacitación que fortalezcan los conocimientos y competencias del personal docente y administrativo en temas de gestión de la calidad.',
   },
   {
-    title: 'Capacitación y Sensibilización',
-    description: 'Organizamos talleres y jornadas para fomentar una cultura de calidad entre docentes, estudiantes y personal administrativo.',
-  },
-  {
-    title: 'Gestión Documental',
-    description: 'Administramos y mantenemos actualizado el acervo documental que respalda los procesos de calidad y acreditación de la facultad.',
-  },
-  {
-    title: 'Planes de Mejora',
-    description: 'Apoyamos en la formulación, seguimiento y evaluación de los planes de mejora derivados de los procesos de autoevaluación.',
+    title: 'Otras funciones que le correspondan por las normas pertinentes.',
+    description: 'Incluye el cumplimiento de funciones adicionales asignadas por la normativa institucional o por disposiciones legales relacionadas con la calidad educativa.',
   },
 ];

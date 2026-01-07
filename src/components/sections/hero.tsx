@@ -34,15 +34,15 @@ export default function HeroSection() {
         </p>
 
         <div className="mt-10 flex items-center justify-center gap-x-6">
-          <Button asChild size="lg">
+          <Button asChild size="lg" className="transition-transform hover:scale-105">
             <Link href="/documentos">Ver Documentos</Link>
           </Button>
 
           <Button
             asChild
-            variant="outline"
+            variant="default"
             size="lg"
-            className="border-white text-white hover:bg-white hover:text-primary"
+            className="bg-white text-black hover:bg-gray-200 transition-transform hover:scale-105"
           >
             <Link href="/nosotros">Conócenos</Link>
           </Button>

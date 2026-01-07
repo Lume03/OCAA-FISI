@@ -1,7 +1,8 @@
 'use client';
 
-import React, { useRef, useEffect, useCallback } from 'react';
+import React from 'react';
 import Image from 'next/image';
+import Autoplay from 'embla-carousel-autoplay';
 import { Card, CardContent } from '@/components/ui/card';
 import {
   Carousel,
@@ -9,45 +10,46 @@ import {
   CarouselItem,
   CarouselNext,
   CarouselPrevious,
-  type CarouselApi,
 } from '@/components/ui/carousel';
+import { Skeleton } from '@/components/ui/skeleton';
+import { cn } from '@/lib/utils';
 import { PlaceHolderImages } from '@/lib/placeholder-images';
 
 const carouselImages = PlaceHolderImages.filter((img) => img.id.startsWith('carousel'));
+// Duplicamos las imágenes para asegurar que el loop infinito visual (seamless) funcione correctamente
+// incluso en pantallas grandes donde se muestran múltiples slides a la vez.
+const allCarouselImages = [...carouselImages, ...carouselImages];
+
+function CarouselCard({ image }: { image: (typeof PlaceHolderImages)[number] }) {
+  const [isLoading, setIsLoading] = React.useState(true);
+
+  return (
+    <Card className="overflow-hidden shadow-lg">
+      <CardContent className="relative aspect-video p-0">
+        {isLoading && (
+          <Skeleton className="absolute inset-0 z-10 h-full w-full animate-pulse bg-muted" />
+        )}
+        <Image
+          src={image.imageUrl}
+          alt={image.description}
+          fill
+          loading="lazy"
+          onLoad={() => setIsLoading(false)}
+          className={cn(
+            'object-cover transition-transform duration-300 hover:scale-105',
+            isLoading ? 'scale-105 blur-sm' : 'scale-100 blur-0'
+          )}
+          data-ai-hint={image.imageHint}
+        />
+      </CardContent>
+    </Card>
+  );
+}
 
 export default function CarouselSection() {
-  const [api, setApi] = React.useState<CarouselApi>();
-  const timerRef = useRef<NodeJS.Timeout | null>(null);
-
-  const startAutoplay = useCallback(() => {
-    stopAutoplay(); // Ensure no multiple intervals are running
-    if (!api) return;
-    timerRef.current = setInterval(() => {
-      api.scrollNext();
-    }, 4500);
-  }, [api]);
-
-  const stopAutoplay = useCallback(() => {
-    if (timerRef.current) {
-      clearInterval(timerRef.current);
-      timerRef.current = null;
-    }
-  }, []);
-
-  useEffect(() => {
-    if (!api) return;
-    startAutoplay();
-    api.on('select', startAutoplay);
-    api.on('pointerDown', stopAutoplay);
-
-    return () => {
-      stopAutoplay();
-      if(api) {
-        api.off('select', startAutoplay);
-        api.off('pointerDown', stopAutoplay);
-      }
-    };
-  }, [api, startAutoplay, stopAutoplay]);
+  const plugin = React.useRef(
+    Autoplay({ delay: 3000, stopOnInteraction: true })
+  );
 
   return (
     <section className="w-full py-12 md:py-24 lg:py-32 bg-secondary/50">
@@ -56,37 +58,22 @@ export default function CarouselSection() {
           Nuestras Actividades
         </h2>
         <div
-          onMouseEnter={stopAutoplay}
-          onMouseLeave={startAutoplay}
-          onFocus={stopAutoplay}
-          onBlur={startAutoplay}
           role="region"
           aria-label="Image Carousel"
           className="relative"
         >
-          <Carousel 
-            setApi={setApi} 
-            className="w-full" 
-            opts={{ 
+          <Carousel
+            plugins={[plugin.current]}
+            className="w-full"
+            opts={{
               loop: true,
               align: 'start',
             }}
           >
             <CarouselContent className="-ml-4">
-              {carouselImages.map((image, index) => (
+              {allCarouselImages.map((image, index) => (
                 <CarouselItem key={index} className="pl-4 md:basis-1/2 lg:basis-1/3">
-                  <Card className="overflow-hidden shadow-lg">
-                    <CardContent className="relative aspect-video p-0">
-                      <Image
-                        src={image.imageUrl}
-                        alt={image.description}
-                        fill
-                        loading="lazy"
-                        className="object-cover transition-transform duration-300 hover:scale-105"
-                        data-ai-hint={image.imageHint}
-                      />
-                    </CardContent>
-                  </Card>
+                  <CarouselCard image={image} />
                 </CarouselItem>
               ))}
             </CarouselContent>
