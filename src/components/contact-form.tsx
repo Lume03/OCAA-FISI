@@ -22,6 +22,7 @@ export function ContactForm() {
     defaultValues: {
       name: '',
       email: '',
+      subject: '',
       message: '',
     },
   });
@@ -59,7 +60,7 @@ export function ContactForm() {
             <FormItem>
               <FormLabel>Nombre Completo</FormLabel>
               <FormControl>
-                <Input placeholder="John Doe" {...field} />
+                <Input placeholder="Nombre Completo" {...field} />
               </FormControl>
               <FormMessage />
             </FormItem>
@@ -72,7 +73,20 @@ export function ContactForm() {
             <FormItem>
               <FormLabel>Correo Electrónico</FormLabel>
               <FormControl>
-                <Input placeholder="su.correo@ejemplo.com" {...field} />
+                <Input placeholder="Correo Electrónico" {...field} />
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+        <FormField
+          control={form.control}
+          name="subject"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>Asunto</FormLabel>
+              <FormControl>
+                <Input placeholder="Asunto" {...field} />
               </FormControl>
               <FormMessage />
             </FormItem>
@@ -85,7 +99,7 @@ export function ContactForm() {
             <FormItem>
               <FormLabel>Mensaje</FormLabel>
               <FormControl>
-                <Textarea placeholder="Escriba su consulta aquí..." className="min-h-[120px]" {...field} />
+                <Textarea placeholder="Escriba su mensaje..." className="min-h-[120px]" {...field} />
               </FormControl>
               <FormMessage />
             </FormItem>

@@ -1,6 +1,8 @@
+"use client";
 import { ContactForm } from "@/components/contact-form";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Mail, MapPin, Phone } from "lucide-react";
+import ContactMapWrapper from '@/components/contact-map-wrapper';
 
 export default function ContactoPage() {
   return (
@@ -33,13 +35,13 @@ export default function ContactoPage() {
                 <div>
                   <h3 className="font-semibold">Dirección</h3>
                   <p className="text-muted-foreground">
-                    Facultad de Ingeniería de Sistemas e Informática <br />
-                    Calle Germán Amézaga 375, Lima 15081, Perú
+                    Facultad de Ingeniería de Sistemas e Informática - UNMSM <br />
+                    Av. Amezaga, Lima 15081
                   </p>
                 </div>
               </div>
               <div className="flex items-start gap-4">
-                 <div className="bg-primary/10 p-3 rounded-full">
+                <div className="bg-primary/10 p-3 rounded-full">
                   <Mail className="w-6 h-6 text-primary" />
                 </div>
                 <div>
@@ -48,7 +50,7 @@ export default function ContactoPage() {
                 </div>
               </div>
               <div className="flex items-start gap-4">
-                 <div className="bg-primary/10 p-3 rounded-full">
+                <div className="bg-primary/10 p-3 rounded-full">
                   <Phone className="w-6 h-6 text-primary" />
                 </div>
                 <div>
@@ -57,9 +59,13 @@ export default function ContactoPage() {
                 </div>
               </div>
             </div>
+            <div className="w-full h-[300px] rounded-lg overflow-hidden border relative z-0">
+              <ContactMapWrapper />
+            </div>
           </div>
         </div>
       </div>
     </div>
+
   );
 }

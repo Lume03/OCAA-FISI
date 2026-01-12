@@ -25,16 +25,67 @@ export function Header() {
 
   return (
     <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur">
-      <div className="container flex h-20 items-center">
+      <div className="container flex h-20 items-center justify-between md:justify-start">
+        {/* MOBILE TRIGGER */}
+        <div className="flex items-center md:hidden">
+          <Sheet open={isSheetOpen} onOpenChange={setIsSheetOpen}>
+            <SheetTrigger asChild>
+              <Button variant="ghost" size="icon" className="hover:bg-transparent">
+                <Menu className="h-6 w-6" />
+                <span className="sr-only">Menú</span>
+              </Button>
+            </SheetTrigger>
+
+            <SheetContent side="left" className="w-[300px] sm:w-[400px] pr-0">
+              <div className="px-7">
+                <Link
+                  href="/"
+                  className="flex items-center mb-8"
+                  onClick={() => setIsSheetOpen(false)}
+                >
+                  {logoImage ? (
+                    <Image
+                      src={logoImage.imageUrl}
+                      alt={logoImage.description}
+                      width={200}
+                      height={60}
+                      className="h-10 w-auto"
+                    />
+                  ) : (
+                    <span className="font-bold text-lg">OCAA FISI</span>
+                  )}
+                </Link>
+              </div>
+              <nav className="flex flex-col gap-4 px-7">
+                {navLinks.map(({ href, label }) => (
+                  <Link
+                    key={href}
+                    href={href}
+                    onClick={() => setIsSheetOpen(false)}
+                    className={cn(
+                      'block py-2 text-lg font-medium transition-colors hover:text-primary border-b border-border/40 last:border-0',
+                      pathname === href
+                        ? 'text-primary font-bold'
+                        : 'text-muted-foreground'
+                    )}
+                  >
+                    {label}
+                  </Link>
+                ))}
+              </nav>
+            </SheetContent>
+          </Sheet>
+        </div>
+
         {/* LOGO */}
-        <Link href="/" className="mr-8 flex items-center">
+        <Link href="/" className="flex items-center md:mr-8 ml-4 md:ml-0">
           {logoImage ? (
             <Image
               src={logoImage.imageUrl}
               alt={logoImage.description}
               width={220}
               height={70}
-              className="h-14 w-auto"
+              className="h-12 w-auto md:h-14"
               priority
             />
           ) : (
@@ -48,7 +99,7 @@ export function Header() {
         </Link>
 
         {/* NAV DESKTOP */}
-        <nav className="hidden items-center space-x-8 text-sm font-medium md:flex">
+        <nav className="hidden items-center space-x-8 text-sm font-medium md:flex ml-auto">
           {navLinks.map(({ href, label }) => (
             <Link
               key={href}
@@ -64,55 +115,6 @@ export function Header() {
             </Link>
           ))}
         </nav>
-
-        {/* MOBILE */}
-        <div className="flex flex-1 items-center justify-end md:hidden">
-          <Sheet open={isSheetOpen} onOpenChange={setIsSheetOpen}>
-            <SheetTrigger asChild>
-              <Button variant="outline" size="icon">
-                <Menu className="h-5 w-5" />
-              </Button>
-            </SheetTrigger>
-
-            <SheetContent side="left">
-              <nav className="grid gap-6 text-lg font-medium">
-                <Link
-                  href="/"
-                  className="flex items-center"
-                  onClick={() => setIsSheetOpen(false)}
-                >
-                  {logoImage ? (
-                    <Image
-                      src={logoImage.imageUrl}
-                      alt={logoImage.description}
-                      width={200}
-                      height={60}
-                      className="h-12 w-auto"
-                    />
-                  ) : (
-                    <span className="font-bold">OCAA FISI</span>
-                  )}
-                </Link>
-
-                {navLinks.map(({ href, label }) => (
-                  <Link
-                    key={href}
-                    href={href}
-                    onClick={() => setIsSheetOpen(false)}
-                    className={cn(
-                      'transition-colors hover:text-primary',
-                      pathname === href
-                        ? 'text-primary'
-                        : 'text-muted-foreground'
-                    )}
-                  >
-                    {label}
-                  </Link>
-                ))}
-              </nav>
-            </SheetContent>
-          </Sheet>
-        </div>
       </div>
     </header>
   );

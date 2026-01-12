@@ -7,6 +7,9 @@ export const formSchema = z.object({
   email: z.string().email({
     message: 'Por favor, ingrese un correo electrónico válido.',
   }),
+  subject: z.string().min(5, {
+    message: 'El asunto debe tener al menos 5 caracteres.',
+  }),
   message: z.string().min(10, {
     message: 'El mensaje debe tener al menos 10 caracteres.',
   }),
